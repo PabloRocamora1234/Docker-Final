@@ -4,26 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Shop;
 use Illuminate\Http\Request;
-use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Log;
 
 class ShopController extends Controller
 {
-    public function getById($id)
-    {
-        $shop = Shop::getById($id);
-        return response()->json($shop);
-    }
-
-    public function create(Request $request)
+    public function index()
     {
         try {
-            $shop = Shop::create($request->all());
-            return response()->json($shop, 201);
-        } catch (QueryException $e) {
-            if ($e->errorInfo[1] == 1062) {
-                return response()->json(['error' => 'Duplicate entry for email'], 409);
-            }
-            return response()->json(['error' => 'An error occurred'], 500);
+            return Shop::all();
+        } catch (\Exception $e) {
+            Log::error('Error fetching shops: ' . $e->getMessage());
+            return response()->json(['error' => 'Error fetching shops: ' . $e->getMessage()], 500);
         }
     }
 }

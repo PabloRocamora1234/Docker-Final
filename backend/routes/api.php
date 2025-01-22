@@ -6,6 +6,7 @@ use App\Http\Controllers\ShopController;
 use App\Http\Controllers\ToyController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\SnackController;
+use App\Http\Controllers\DrinkController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +28,5 @@ Route::post('/shop', [ShopController::class, 'create']);
 Route::apiResource('/Toy', ToyController::class);
 Route::get('/data', [DataController::class, 'index']);
 Route::get('/snacks', [SnackController::class, 'index']);
+Route::get('/shops', [ShopController::class, 'index']);
+Route::get('/drinks', [DrinkController::class, 'index']);
